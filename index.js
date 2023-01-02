@@ -6,7 +6,7 @@ dotenv.config()
 import userRoutes from './routes/user.route.js'
 
 const app = express();
-const PORT=3000;
+const PORT=8080;
 
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.DATABASE_URL,{useNewUrlParser:true})
@@ -15,7 +15,7 @@ const db = mongoose.connection
 db.on('error',(error)=>console.log(error))
 db.once('open',()=>console.log('Connected to Database...'))
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.use('/users',userRoutes);
 

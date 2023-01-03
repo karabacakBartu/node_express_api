@@ -1,19 +1,28 @@
-import express from 'express';
-import { createUserController,getUserController, deleteUserController, getUsersController, updateUserController } from '../controllers/user.controller.js'; 
+import express from "express";
+
+import { auhtenticateJWT } from "../jwt/auth.jwt.js";
+
+import {
+  createUserController,
+  getUserController,
+  deleteUserController,
+  getUsersController,
+  updateUserController,
+  userLogin,
+} from "../controllers/user.controller.js";
 
 const router = express.Router();
 
-router.get('/',getUsersController);
+router.get("/", auhtenticateJWT, getUsersController);
 
-router.put('/:id',updateUserController);
+router.put("/:id", auhtenticateJWT, updateUserController);
 
-router.post('/',createUserController);
+router.post("/", auhtenticateJWT, createUserController);
 
-router.delete('/:id',deleteUserController);
+router.delete("/:id", auhtenticateJWT, deleteUserController);
 
-router.get('/:id',getUserController);
+router.get("/:id", auhtenticateJWT, getUserController);
 
-
-
+router.post("/login", userLogin);
 
 export default router;
